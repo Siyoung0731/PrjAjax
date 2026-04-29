@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+</style>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script>
+	window.onload = function() {
+		const btn1El = document.querySelector('#btn1') // jquery = $('#btn1').on('click', function() {})
+		const div1El = document.querySelector('#div1')
+		btn1El.addEventListener('click', function() {
+			//alert(this.innerHTML)
+			// 1. xhr 객체를 준비
+			const xhr = new XMLHttpRequest();
+			let loc = 'data/friends.xml';
+			//let loc = 'https://jsonplaceholder.typicode.com/todos/4';
+			// 2. 요청 준비 : get 방식
+			// false : 동기 방식 호출
+			// true : 비동기 방식 호출
+			// xhr.open(method, url, async) : 요청 초기화
+			xhr.open('GET', loc, false )
+			
+			// 3. 서버를 호출 한다
+			// xhr.send() : 요청 전송 - 비동기인 경우, 요청을 전송하는 즉시 반환
+			xhr.send();
+	
+			// 4. 도착한 data를 처리한다.
+			let result = xhr.responseText;
+			//alert(result)
+			
+			div1El.innerHTML = result;
+		})
+	}
+</script>
+</head>
+<body>
+	<h2>Ajax(Asynchronous JavaScript And XML)</h2>
+	<p>페이지 전체를 바꾸지 않고 서버의 data 를 가져온다</p>
+	<p>1. XMLHttpRequest(xhr) 객체 - 실시간 중복확인</p>
+	<p>동기방식</p>
+	<button id="btn1">Get Data</button>
+	<div id="div1"></div>
+</body>
+</html>

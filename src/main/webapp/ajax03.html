@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	.box {  
+		width : 150px;
+		border: 1px solid blue;
+		padding: 10px;
+		border-radius : 10px;
+		margin: 20px;
+		float: left;
+	}
+</style>
+<script src="https://code.jquery.com/jquery.min.js"></script>
+<script>
+	window.onload = function() {
+		const btn1El = document.querySelector('#btn1') // jquery = $('#btn1').on('click', function() {})
+		const div1El = document.querySelector('#div1')
+		btn1El.addEventListener('click', function() {
+			// 1. xhr 객체를 준비 
+			const xhr = new XMLHttpRequest();
+			
+			// xhr.readyState
+			// 0 = new XMLHttpRequest / 1 = open / 2 = send / 3 = 첫번째 데이터 도착 / 4 = 모든 data가 도착했다.
+			// xhr 상태 변화 추적
+			xhr.onreadystatechange = function() {
+				alert( xhr.readyState )
+				if(xhr.readyState == 4){
+					if(xhr.status == 200) { // 200 : ok
+						/*
+						let result = xhr.responseText
+						console.log(result); // xml 형태의 문자열 : String
+						let parser = new DOMParser();
+						let xmlDoc = parser.parseFromString(result, 'text/xml'); // xml Document 객체 <- String(xml 형태)
+						console.log(xmlDoc); //
+						*/
+						// ==
+						let xmlDoc = xhr.responseXML; // xml Document
+						
+						// 문서 조작
+						let names = xmlDoc.getElementsByTagName('name');
+						let language = xmlDoc.getElementsByTagName('language');
+						let age = xmlDoc.getElementsByTagName('age');
+						
+						let tag = '';
+						for(var i = 0; i < names.length; i++) {
+							console.dir(names[i]);
+							tag += '<div class="box">'
+							tag += '<h2>' + names[i].innerHTML + '</h2>'							
+							tag += '<p>' + language[i].innerHTML + '</p>'							
+							tag += '<p>' + age[i].innerHTML + '</p>'							
+							tag += '</div>'
+						}											
+						div1El.innerHTML = tag;
+					}
+				}
+			}		
+			// 2. data 요청 준비
+			let loc = '/data/data.xml';
+			// 3. 요청 초기화 - 비동기 방식
+			xhr.open('GET', loc, true);
+			// 4. 호출 - 비동기인 경우 - 요청을 전송하는 즉시 반환
+			xhr.send();
+		})
+	}
+</script>
+</head>
+<body>
+	<h2>Ajax(Asynchronous JavaScript And XML)</h2>
+	<p>페이지 전체를 바꾸지 않고 서버의 data 를 가져온다</p>
+	<p>1. XMLHttpRequest(xhr) 객체 - 실시간 중복확인</p>
+	<p>비동기방식</p>
+	<button id="btn1">Get Data</button>
+	<div id="div1"></div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<friends>
+  <friend>
+    <name>강호동</name>
+    <language>JSP</language>
+  </friend>
+  <friend>
+    <name>유재석</name>
+    <language>Spring</language>
+  </friend>
+  <friend>
+    <name>신동엽</name>
+    <language>JAVA</language>
+  </friend>
+  <friend>
+    <name>서장훈</name>
+    <language>자바스크립트</language>
+  </friend>
+</friends>

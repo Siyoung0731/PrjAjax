@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<members>
+   <member>
+    <memid>sky</memid> 
+    <mempass>1234</mempass>
+    <memname>하늘</memname> 
+    <email>sky@green.com</email>
+    <rdate>21/11/19</rdate>  
+  </member>
+  <member>
+    <memid>sea</memid> 
+    <mempass>1234</mempass>
+    <memname>바다</memname> 
+    <email>sea@green.com</email>
+    <rdate>21/11/19</rdate>  
+  </member>
+  <member>
+    <memid>sky2</memid> 
+    <mempass>1234</mempass>
+    <memname>하늘2</memname> 
+    <email>sky2@green.com</email>
+    <rdate>21/11/19</rdate>  
+  </member>
+</members>
