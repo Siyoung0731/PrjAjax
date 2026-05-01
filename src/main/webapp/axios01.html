@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+	<button>Get Data</button>
+	<div id="output"></div>
+	
+	<!-- Script -->
+	<script>
+		const btnEl = document.querySelector('button')
+		const outputEl = document.querySelector('#output')
+		
+		btnEl.addEventListener('click', function() {
+			//https://jsonplaceholder.typicode.com/comments?postId=1&userId=1
+			//let url = 'https://jsonplaceholder.typicode.com/comments?postId=1'; 
+			let url = 'https://jsonplaceholder.typicode.com/comments'
+			let html = ''
+			axios.get(url, {
+				params : {
+					postId : 1,
+					userId : 1
+				}
+			})
+			.then(function(res) {
+				console.log(res.data)
+				console.log(res.status)
+				console.log(res.statusText)
+				console.log(res.headers)
+				console.log(res.config)
+				
+				let comments = res.data;
+				comments.forEach(function(comment, i) {
+					html += `
+						<div>
+							<h2>Comment name : ${comment.name}</h2>
+							<p>Comment body : ${comment.body}</p>
+						</div>
+					`
+				})
+				
+				outputEl.innerHTML = html
+			})
+			.catch(function(error) {
+				console.log(error)
+			})
+		})
+	</script>
+</body>
+</html>

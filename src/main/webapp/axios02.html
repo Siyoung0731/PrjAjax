@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+	<input type="text" id="name" />
+	<button>Get Data</button>
+	<div id="output"></div>
+	
+	<script>
+		const iptEl = document.querySelector('#name');
+		const btnEl = document.querySelector('button');
+		const optEl = document.querySelector('#output');
+		
+		
+		btnEl.addEventListener('click', function() {
+			// 서버 연결
+			//let url = 'http://localhost:8080/product';
+			axios('http://localhost:8080/product', {
+				method: 'get',
+				params: { //인자로 보낼 데이터=name
+					name : iptEl.value
+				}
+			})
+			.then(response => {
+				console.dir(response)
+				
+				let jsonObj = response.data;
+				
+				let name = jsonObj.name
+				let language = jsonObj.language
+				
+				optEl.innerHTML = '<h2>' + name + ',' + language + '</h2>'
+			})
+			.catch(function(error) {
+				console.log(error)
+			})
+		})
+	</script>
+</body>
+</html>

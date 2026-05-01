@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+	<!-- 등록 -->
+	<h2>회원 등록</h2>
+	<input type="text" id="name" value="장원영"/>
+	<input type="text" id="language" value="ive"/>
+<!-- 	<input type="file" name="file" /> -->
+	<button id="add">회원 등록</button>
+	<div id="div1"></div>
+	<!-- 조회 -->
+	<h2>회원 조회</h2>
+	<input type="text" id="name2" value="장원영"/>
+	<button id="get">회원 조회</button>
+	<div id="div2"></div>
+	
+	<script>
+		/// 함수
+		function addProduct() {
+			const url = 'http://localhost:8080/product';	 
+			const nameEl = document.querySelector('#name');
+			const laggEl = document.querySelector('#language');
+		
+			// 서버에 전달 될 인자값 : post 방식의
+			const formData = new FormData();
+			formData.append('name', nameEl.value)
+			formData.append('language', laggEl.value)
+			//formData.append('pic', file)
+			
+			const config = {
+				header : {
+					"content-type" : "multipart/form-data"
+				}
+			}
+			// 서버에 @MultipartConfig 필수!!!
+			return axios.post(url, formData, config);
+		}
+	
+		// 등록 처리
+		const addEl = document.querySelector('#add');	
+		const div1El = document.querySelector('#div1');		
+		//let url = 'http://localhost:8080/product'; : Post 방식 호출
+		addEl.addEventListener('click', function() {			
+			addProduct();			
+		})
+			
+		// 조회 처리
+		const name2El = document.querySelector('#name2');
+		const lagg2El = document.querySelector('#language2');
+		const getEl = document.querySelector('#get');	
+		const div2El = document.querySelector('#div2');
+		
+		getEl.addEventListener('click', function() {
+			const url = 'http://localhost:8080/product';
+			
+			axios({
+				url : url, 
+				method: 'get',
+				params: { //인자로 보낼 데이터=name
+					name : name2El.value
+				}
+			})
+			.then(response => {
+				let name = response.data.name
+				let language = response.data.language
+				
+				div2El.innerHTML = name + ':' + language
+			})
+			.catch(error => console.log(error))
+		})
+		
+	</script>
+</body>
+</html>

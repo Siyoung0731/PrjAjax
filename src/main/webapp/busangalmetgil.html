@@ -16,7 +16,7 @@
 	보고싶은 페이지<input type="number" id="page" value="1" min="1" max="10"/>
 	<button>Get Data</button>
 	<div id="output"></div>
-	
+	<!-- Javascript -->
 	<script>
 		const numEl = document.querySelector('#page')
 		const btnEl = document.querySelector('button')
@@ -26,7 +26,7 @@
 		btnEl.addEventListener('click', function() {
 			let url = 'http://apis.data.go.kr/6260000/fbusangmgtourinfo/getgmgtourinfo'
 			url += '?ServiceKey=f3e9da7e69abfa8277c29e5619125b426c15776092c665144d48b16ef4aa67fd'
-			url += '&numOfRows=10'
+			url += '&numOfRows=10' // 한 페이지에 몇개의 자료 조회
 			url += '&pageNo=' + numEl.value
 			url += '&resultType=json'
 			// 서버에서 가져오는 방식 : GET

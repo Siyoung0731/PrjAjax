@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>BusanFestival-Axios</title>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<style>
+	ul {
+		border: 1px solid black;
+		border-radius: 10px;
+		margin: 10px;
+	}
+</style>
+<body>
+	<h2>부산 축제 서비스</h2>
+	보고싶은 페이지<input type="number" id="page" value="1" min="1" max="4">
+	<button id="btn">축제 조회</button>
+	<div id="opt"></div>
+	
+	<script>
+		const numEl = document.querySelector('#page')
+		const btnEl = document.querySelector('#btn')
+		const optEl = document.querySelector('#opt')
+		
+		btnEl.addEventListener('click', function() {
+			const url = 'http://apis.data.go.kr/6260000/FestivalService/getFestivalKr'
+			
+			axios.get(url, {
+				params : {
+					ServiceKey : 'f3e9da7e69abfa8277c29e5619125b426c15776092c665144d48b16ef4aa67fd',
+					numOfRows : 10,
+					pageNo : numEl.value,
+					resultType : 'json',
+					uc_seq : 11
+				}
+			})
+			.then(response => {
+				  const data = response.data.getFestivalKr
+				  const itemList = data.item
+				  const totalCount = parseInt(data.totalCount)
+				  const numOfRows = parseInt(data.numOfRows)
+				  numEl.max = Math.ceil(totalCount / numOfRows)
+				  
+				  dataDisplay(itemList)
+			})
+			.catch(error => console.log(error))
+		})
+		function dataDisplay(itemList) {
+			let html = '';
+			itemList.forEach(item => {
+				html += `
+					<ul>
+					  <li>콘텐츠ID: ${item.UC_SEQ}</li>
+					  <li>콘텐츠명: ${item.TITLE}</li>
+					  <li>구군: ${item.GUGUN_NM}</li>
+					  <li>위도: ${item.LAT}</li>
+					  <li>경도: ${item.LNG}</li>
+					  <li>장소: ${item.PLACE}</li>
+					  <li>제목: ${item.TITLE}</li>
+					  <li>주소: ${item.ADDR1}</li>
+					  <li>연락처: ${item.CNTCT_TEL}</li>
+					  <li>썸네일: ${item.MAIN_IMG_THUMB}</li>
+					  <li><img src="${item.MAIN_IMG_THUMB}"/></li>
+					</ul>
+				`
+			});
+			optEl.innerHTML = html;
+		}
+	</script>
+</body>
+</html>

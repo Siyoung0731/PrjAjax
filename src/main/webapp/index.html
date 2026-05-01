@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원 가입</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="signup-container">
+        <h1 class="title">회원 가입을 위해<br>정보를 입력해주세요</h1>
+        
+        <form id="signupForm" class="signup-form">
+            <div class="input-group">
+                <label for="email">* 이메일</label>
+                <input type="email" id="email" placeholder="example@email.com" required>
+            </div>
+
+            <div class="input-group">
+                <label for="name">* 이름</label>
+                <input type="text" id="name" required>
+            </div>
+
+            <div class="input-group">
+                <label for="password">* 비밀번호</label>
+                <input type="password" id="password" required>
+            </div>
+
+            <div class="input-group">
+                <label for="passwordConfirm">* 비밀번호 확인</label>
+                <input type="password" id="passwordConfirm" required>
+                <small id="pwError" class="error-text"></small>
+            </div>
+
+            <div class="gender-group">
+                <label><input type="radio" name="gender" value="여성" required> 여성</label>
+                <label><input type="radio" name="gender" value="남성"> 남성</label>
+            </div>
+
+            <div class="terms-group">
+                <label>
+                    <input type="checkbox" id="terms" required> 
+                    이용약관 개인정보 수집 및 이용, 마케팅 활용 선택에 모두 동의합니다.
+                </label>
+            </div>
+
+            <button type="submit" class="submit-btn">가입하기</button>
+        </form>
+    </div>
+
+<script>
+    document.getElementById('signupForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // 폼이 실제로 제출되어 페이지가 새로고침되는 것을 방지
+
+        // 입력값 가져오기
+        const email = document.getElementById('email').value;
+        const name = document.getElementById('name').value;
+        const password = document.getElementById('password').value;
+        const passwordConfirm = document.getElementById('passwordConfirm').value;
+        const gender = document.querySelector('input[name="gender"]:checked')?.value;
+        const termsChecked = document.getElementById('terms').checked;
+        const pwError = document.getElementById('pwError');
+
+        // 1. 비밀번호 일치 확인
+        if (password !== passwordConfirm) {
+            pwError.textContent = "비밀번호가 일치하지 않습니다.";
+            pwError.style.display = "block";
+            document.getElementById('passwordConfirm').focus();
+            return;
+        } else {
+            pwError.style.display = "none";
+        }
+
+        // 2. 성별 선택 확인 (HTML required로도 가능하지만 커스텀 체크)
+        if (!gender) {
+            alert("성별을 선택해 주세요.");
+            return;
+        }
+
+        // 3. 모든 검사 통과 시 결과 출력 (실제 서버 전송 대신 alert)
+        console.log("회원가입 데이터:", { email, name, password, gender });
+        alert(`${name}님, 회원가입이 완료되었습니다!`);
+        
+        // 폼 초기화
+        this.reset();
+    });
+
+    // 실시간 비밀번호 일치 확인 기능 (선택사항)
+    document.getElementById('passwordConfirm').addEventListener('input', function() {
+        const password = document.getElementById('password').value;
+        const pwError = document.getElementById('pwError');
+        
+        if (this.value !== password) {
+            pwError.textContent = "비밀번호가 일치하지 않습니다.";
+            pwError.style.display = "block";
+        } else {
+            pwError.style.display = "none";
+        }
+    });
+
+</script>
+</body>
+</html>

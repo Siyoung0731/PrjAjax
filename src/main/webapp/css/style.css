@@ -1,0 +1,50 @@
+@charset "UTF-8";
+* {
+    margin: 0; padding: 0; box-sizing: border-box;
+    font-family: 'Pretendard', sans-serif;
+}
+
+body {
+    background-color: #f0f4f9;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh;
+}
+
+.signup-container {
+    background-color: #fff;
+    width: 100%; max-width: 450px;
+    padding: 50px 40px; border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.title {
+    color: #2c5ae9; font-size: 26px; margin-bottom: 40px; line-height: 1.4;
+}
+
+.input-group { margin-bottom: 20px; position: relative; }
+
+.input-group label { display: block; font-size: 13px; color: #888; margin-bottom: 5px; }
+
+.input-group input {
+    width: 100%; border: none; border-bottom: 1px solid #ddd;
+    padding: 10px 0; font-size: 16px; outline: none;
+}
+
+.input-group input:focus { border-bottom: 2px solid #2c5ae9; }
+
+/* 에러 메시지 스타일 */
+.error-text { color: #ff4d4d; font-size: 12px; margin-top: 5px; display: none; }
+
+.gender-group { display: flex; justify-content: center; gap: 30px; margin: 30px 0; }
+
+.terms-group { margin: 30px 0; font-size: 13px; color: #666; line-height: 1.5; }
+
+.terms-group label { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+
+.submit-btn {
+    width: 100%; background-color: #fff; border: 1px solid #2c5ae9;
+    color: #2c5ae9; padding: 15px; font-size: 16px; border-radius: 8px;
+    cursor: pointer; transition: 0.3s;
+}
+
+.submit-btn:hover { background-color: #2c5ae9; color: #fff; }
